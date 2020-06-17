@@ -86,9 +86,28 @@ surveys[3, ]
 # equivalent to head_surveys <- head(surveys)
 head_surveys <- surveys[1:6, ] 
 
+## You can also exclude certain indices of a data frame using the “-” sign:
+surveys[, -1]          # The whole data frame, except the first column
+surveys[-c(7:34786), ] # Equivalent to head(surveys)
+
+## Data frames can be subset by calling indices (as shown previously), but 
+## also by calling their column names directly:
+surveys["species_id"]       # Result is a data.frame
+surveys[, "species_id"]     # Result is a vector
+surveys[["species_id"]]     # Result is a vector
+surveys$species_id          # Result is a vector
 
 
-### Skipping forward, factors
+## Factors
+
+#Factors represent categorical data. They are stored as integers associated 
+#with labels and they can be ordered or unordered. While factors look (and 
+#often behave) like character vectors, they are actually treated as integer 
+#vectors by R. So you need to be very careful when treating them as strings.
+
+#Once created, factors can only contain a pre-defined set of values, known 
+#as levels. By default, R always sorts levels in alphabetical order. For 
+#instance, if you have a factor with 2 levels:
 sex <- factor(c("male", "female", "female", "male"))
 sex
 # [1] male   female female male  
@@ -98,6 +117,16 @@ sex
 sex <- factor(sex, levels = c("male", "female"))
 sex # after re-ordering
 
+#Sometimes, the order of the factors does not matter, other times you might 
+#want to specify the order because it is meaningful (e.g., “low”, “medium”, “high”), it improves your visualization, or it is required by a particular type of analysis. Here, one way to reorder our levels in the sex vector would be:
+  
+  sex # current order
+#> [1] male   female female male  
+#> Levels: female male
+sex <- factor(sex, levels = c("male", "female"))
+sex # after re-ordering
+#> [1] male   female female male  
+#> Levels: male female
 
 year_fct <- factor(c(1990, 1983, 1977, 1998, 1990))
 as.numeric(year_fct)               # Wrong! And there is no warning...
