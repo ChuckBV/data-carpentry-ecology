@@ -2,10 +2,10 @@
 
 ### download data to machine memory
 download.file(url="https://ndownloader.figshare.com/files/2292169",
-              destfile = "data-raw/portal_data_joined.csv")
+              destfile = "data_raw/portal_data_joined.csv")
 
 ### load data into a csv file
-surveys <- read.csv("data-raw/portal_data_joined.csv")
+surveys <- read.csv("data_raw/portal_data_joined.csv")
 
 head(surveys)
 # record_id month day year plot_id species_id sex hindfoot_length weight   genus  species   taxa plot_type
@@ -35,10 +35,58 @@ str(surveys)
 # $ taxa           : chr  "Rodent" "Rodent" "Rodent" "Rodent" ...
 # $ plot_type      : chr  "Control" "Control" "Control" "Control" ...
 
+## Inspecting data.frame objects
 dim(surveys)
-# [1] 34786    13
 nrow(surveys)
 # [1] 34786
+
+### Size:
+#dim(surveys) - returns a vector with the number of rows in the first element, and the number of columns as the second element (the dimensions of the object)
+#nrow(surveys) - returns the number of rows
+#ncol(surveys) - returns the number of columns
+
+### Content:
+#head(surveys) - shows the first 6 rows
+#tail(surveys) - shows the last 6 rows
+
+### Names:
+#names(surveys) - returns the column names (synonym of colnames() for data.frame objects)
+#rownames(surveys) - returns the row names
+
+### Summary:
+#str(surveys) - structure of the object and information about the class, length and content of each column
+#summary(surveys) - summary statistics for each column
+
+# Indexing and subsetting data frames
+
+#Our survey data frame has rows and columns (it has 2 dimensions), if we want
+#to extract some specific data from it, we need to specify the “coordinates” 
+#we want from it. Row numbers come first, followed by column numbers. 
+#However, note that different ways of specifying these coordinates lead to 
+#results with different classes.
+
+#first element in the first column of the data frame (as a vector)
+surveys[1, 1]   
+
+#first element in the 6th column (as a vector)
+surveys[1, 6]   
+
+#first column of the data frame (as a vector)
+surveys[, 1]    
+
+#first column of the data frame (as a data.frame)
+surveys[1]      
+
+#first three elements in the 7th column (as a vector)
+surveys[1:3, 7] 
+
+#the 3rd row of the data frame (as a data.frame)
+surveys[3, ]    
+
+# equivalent to head_surveys <- head(surveys)
+head_surveys <- surveys[1:6, ] 
+
+
 
 ### Skipping forward, factors
 sex <- factor(c("male", "female", "female", "male"))
