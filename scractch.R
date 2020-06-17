@@ -34,5 +34,5 @@ species <- c("Monarch","Navel orangeworm","Indian meal moth","11-lined Junebeetl
 
 insects <- data.frame(order,species) # now a data frame with two character vectors (columns, variables)
 
-
+insects$order <- as.factor(insects$order)
 
